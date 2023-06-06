@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+
+void setZeros(vector<vector<int>> &matrix)
+{
+	set<int> rw;
+	set<int> clm;
+
+	for(int x=0;x<matrix.size();x++){
+		for(int y=0;y<matrix[x].size();y++){
+			if(matrix[x][y] == 0){
+				rw.insert(x);
+				clm.insert(y);
+			}
+		}
+	}
+	for(auto x:rw){
+		for(int y=0;y<matrix[x].size();y++){
+			matrix[x][y] =0;
+		}
+	}
+	for(auto x:clm){
+		for(int y=0;y<matrix.size();y++){
+			matrix[y][x] =0;
+		}
+	}
+}
