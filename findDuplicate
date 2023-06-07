@@ -1,0 +1,15 @@
+#include <bits/stdc++.h>
+
+int findDuplicate(vector<int> &arr, int n){
+	int ans = -1;
+    for (int i = 0; i < n; i++) {
+        int cur = abs(arr[i]);
+		if (arr[cur] < 0) {
+            ans = cur;
+            break;
+        }
+        arr[cur] *= -1;
+    }
+    return ans;
+}
+
