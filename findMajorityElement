@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+
+int findMajorityElement(int arr[], int n) {
+	unordered_map<int, int> countMap;
+    int majorityElement = 0;
+    int majorityCount = 0;
+    
+    for(int i=0; i<n; i++) {
+        int num = arr[i];
+        countMap[num]++;
+
+        if(countMap[num] > majorityCount) {
+            majorityElement = num;
+
+            majorityCount = countMap[num];
+        }
+    }
+    
+    if(majorityCount > n/2) {
+        return majorityElement;
+    }
+    else {
+        return -1;
+    }
+}
