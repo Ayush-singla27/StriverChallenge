@@ -1,0 +1,20 @@
+#include <bits/stdc++.h>
+
+int LongestSubsetWithZeroSum(vector < int > arr) {
+
+  int cnt =0 ;
+  for(int x=0;x<arr.size();x++){
+    if(arr[x]==0){
+      cnt = max(cnt,1);
+    }
+    int sum =arr[x];
+    for(int y=x+1;y<arr.size();y++){
+      sum += arr[y]; 
+      if(sum == 0 ){
+        cnt = max(cnt,y-x+1);
+      }
+    }
+  }
+  return cnt;
+
+} 
