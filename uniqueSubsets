@@ -1,0 +1,26 @@
+#include <bits/stdc++.h> 
+    
+
+    void rec(vector<int>& nums , vector<int> curr , int itr ,set<vector<int>>* ans){
+        if(itr == nums.size()){
+            sort(curr.begin(),curr.end());
+            ans->insert(curr);
+            return;
+        }
+        curr.push_back(nums[itr]);
+        rec(nums , curr , itr+1,ans);
+        curr.pop_back();
+        rec(nums , curr, itr+1,ans);
+    }
+
+vector<vector<int>> uniqueSubsets(int n, vector<int> &arr)
+{
+    set<vector<int>> ans;
+    vector<int> vec;
+    rec(arr,vec,0,&ans);
+    vector<vector<int>> anss;
+    for(auto x: ans){
+        anss.push_back(x);
+    }
+    return anss;
+}
