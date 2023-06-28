@@ -1,0 +1,50 @@
+#include <bits/stdc++.h> 
+bool isPal(string s){
+    int l=0;
+    int r = s.size()-1;
+    while( r>=l ){
+        if(s[l] != s[r]){
+            return false;
+        }
+        l++;
+        r--;
+    }
+    return true;
+    
+}
+
+void rec(string &s , vector<string> vec,int itr ,vector<vector<string>>* ans){  
+    
+    if(s.size()==1){
+        vec.push_back(s);
+        
+        ans->push_back(vec);
+        return;
+    }
+    if(s.size() == 0){
+        ans->push_back(vec);
+        return;
+    }
+    if(itr > s.size()){
+        return;
+    }  
+    if(isPal(s.substr(0,itr))){
+        vec.push_back(s.substr(0,itr));
+        
+        string temp = s.substr(itr,s.size()-itr); 
+        // cout<<temp<<"\n";
+        rec( temp , vec ,1,ans);
+        vec.pop_back();
+    }
+    rec( s , vec,itr+1 ,ans);
+    
+}
+vector<vector<string>> partition(string &s) 
+{
+    vector<vector<string>> ans;
+    vector<string> vec;
+    // cout<<isPal("Ba");
+    rec(s , vec, 1 , &ans);
+
+    return ans;
+}
