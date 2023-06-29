@@ -1,0 +1,44 @@
+#include <bits/stdc++.h> 
+int factorial(int a){
+    int fact=1;
+    while(a>0){
+        fact*=a;
+        a--;
+    }
+    return fact;
+}
+string kthPermutation(int n, int k) {
+    vector<int> vec;
+
+    for(int x=1;x<=n;x++){
+        vec.push_back(x);
+    }
+    k = k;
+    int itr=0;
+    int cnt=0;
+    while(k != 0){
+        if(itr+cnt>=n){
+            break;
+        }
+        int curFactorial = factorial(n-1-itr);
+        // if(k - curFactorial == 0){
+
+        // }
+        if(k - curFactorial > 0){
+            k = k - curFactorial;
+            cnt++;
+        }
+        else{
+            int temp = vec[itr+cnt];
+            vec.erase(vec.begin()+itr+cnt);
+            vec.insert(vec.begin()+itr , temp);
+            cnt =0 ;
+            itr++;
+        }
+    }
+    string str;
+    for(auto x:vec){
+        str.push_back((char)(x+48));
+    }
+    return str;
+}
