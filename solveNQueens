@@ -1,0 +1,39 @@
+bool safePosition(vector<pair<int,int>> vec, int y,int x){
+    for(auto pair:vec){
+        if(abs(y - pair.first) == abs(x - pair.second) || y == pair.first || x ==pair.second){
+            return false;
+        }
+    }
+    return true;
+}
+
+vector<int> convert(int n,vector<pair<int,int>> vec){
+    vector<int> temp;
+    temp.resize(n*n,0);
+    for(auto x:vec){
+        temp[(x.first*n)+x.second] = 1;
+    }
+    return temp;
+
+}
+
+void rec(int n,vector<pair<int,int>> vec,int itr,vector<vector<int>> *ans){
+    if(itr == n){
+        ans->push_back(convert(n,vec));
+        return;
+    }
+    for(int x=0;x<n;x++){
+        if(safePosition(vec , itr , x)){
+            vec.push_back(make_pair(itr,x));
+            rec(n,vec,itr+1,ans);
+            vec.pop_back();
+        }
+    }
+}
+
+vector<vector<int>> solveNQueens(int n) {
+    vector<pair<int,int>> vec;
+    vector<vector<int>> ans;
+    rec(n,vec,0,&ans);
+    return ans;
+}
