@@ -1,0 +1,40 @@
+#include <bits/stdc++.h> 
+vector<int> KMostFrequent(int n, int k, vector<int> &arr)
+{
+    unordered_map<int,int> mp;
+    for(auto x : arr){
+        if(mp.find(x) == mp.end() ){
+            mp[x]=1;
+        }
+        else{
+            mp[x]++;
+        }
+    }
+    vector<vector<int>> temp;
+    temp.resize( n , vector<int>(0,0));
+
+    for(auto x : mp){
+        temp[x.second].push_back(x.first);
+    }
+
+    vector<int> ans ;
+    for(int x=n-1;x>=0;x--){
+        if(k <=0 ){
+            break;
+        }
+        if(temp[x].empty()){
+            continue;
+        }
+        else{
+            for(auto i : temp[x]){
+                if(k <= 0 ){
+                    break;
+                }
+                ans.push_back(i);
+                k--;
+            }
+        }
+    }
+    sort(ans.begin(),ans.end());
+    return ans;
+}
