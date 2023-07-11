@@ -1,0 +1,18 @@
+#include <bits/stdc++.h>
+void rec(vector<int> v , vector<int> temp , vector<vector<int>> * ans , int sz){
+    if(sz == v.size()){
+        ans->push_back(temp);
+        return;
+    }
+    temp.push_back(v[sz]);
+    rec(v ,temp , ans , sz+1);
+    temp.pop_back();
+    rec(v ,temp , ans , sz+1);
+} 
+vector<vector<int>> pwset(vector<int>v)
+{
+    vector<int> temp ;
+    vector<vector<int>> ans;
+    rec(v,temp , &ans , 0);
+    return ans;
+}
