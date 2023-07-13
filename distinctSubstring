@@ -1,0 +1,49 @@
+#include <bits/stdc++.h> 
+struct Node{
+    // char val;
+    Node* ptr[26];
+    Node(){
+        // val = '#';
+        for(int x=0;x<26;x++){
+            ptr[x] = NULL;
+        }
+    }
+    // Node(char val){
+    //     val = val;
+    //     for(int x=0;x<26;x++){
+    //         this.ptr[x] = NULL;
+    //     }
+    // }
+};
+struct Trie{
+    private:
+        Node* root;
+    public:
+        int cnt;
+        Trie(){
+            root = new Node();
+            cnt =0;
+        }
+        void insert(string word){
+            Node* temp = root;
+            for(auto x : word){
+                if(temp->ptr[x - 'a'] == NULL ){
+                    cnt++;
+                    temp->ptr[x - 'a'] = new Node();
+                }
+                
+                temp = temp->ptr[x - 'a'];
+                
+            }
+        }
+};
+int distinctSubstring(string &word) {
+    int sz = word.length();
+    Trie* tri = new Trie();
+    for(int x=0;x<sz;x++){
+        // cout<<word.substr(x,sz-x)<<"\n";
+        tri->insert(word.substr(x,sz-x));
+        // cout<<tri->cnt<<"\n";
+    }
+    return tri->cnt;
+}
