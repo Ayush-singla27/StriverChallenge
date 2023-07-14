@@ -1,0 +1,24 @@
+#include <bits/stdc++.h> 
+
+vector<int> nextGreater(vector<int> &arr, int n) {
+    stack<int> stk;
+    for(int x=0;x<n;x++){
+        if(stk.empty()){
+            stk.push(x);
+        }
+        else if(arr[stk.top()] < arr[x]){
+            arr[stk.top()] = arr[x];
+            stk.pop();
+            x--;
+        }
+        else{
+            stk.push(x);
+        }
+    }
+    while(!stk.empty()){
+        arr[stk.top()] = -1;
+        stk.pop();
+    }
+    return arr;
+
+}
