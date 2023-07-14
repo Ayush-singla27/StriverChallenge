@@ -1,0 +1,32 @@
+#include <unordered_map>
+bool isValidParenthesis(string s)
+{
+    unordered_map<char, char> hash;
+    hash['('] = ')';
+    hash['{'] = '}';
+    hash['['] = ']';
+    hash[')'] = '(';
+    hash['}'] = '{';
+    hash[']'] = '[';
+
+    stack<char> stk;
+    for(auto c : s){
+        
+        if(stk.empty()){
+            stk.push(c);
+        }
+        else if(stk.top() == hash[c]){
+            stk.pop();
+        }
+        else{
+            stk.push(c);
+        }
+        
+    }
+    if(stk.empty()){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
