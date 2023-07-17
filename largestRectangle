@@ -1,0 +1,59 @@
+int largestRectangle(vector < int > & heights) {
+  vector<int> left;
+  vector<int> right;
+  int n = heights.size();
+  
+  left.resize(n,0);
+  right.resize(n,0);
+
+  for(int x=0;x<n;x++){
+    int temp = x;
+    int cnt =0 ;
+    while(temp>0){
+      if(heights[temp-1] >= heights[x]){
+        
+        if(left[temp-1] == 0){
+          cnt++;
+          temp --;
+        }
+        else{
+          cnt +=  left[temp-1]+1;
+          temp -= left[temp-1]+1;
+        }
+      }
+      else{
+        break;
+      }
+    }
+    left[x]= cnt;
+
+    temp = x;
+    cnt =0 ;
+    while(temp<n-1){
+      if(heights[temp+1] >= heights[x]){
+        
+        if(right[temp+1] == 0){
+          cnt++;
+          temp++;
+        }
+        else{
+          cnt +=  right[temp+1]+1;
+          temp += right[temp+1]+1;
+        }
+      }
+      else{
+        break;
+      }
+    }
+    right[x]= cnt;
+  }
+
+
+  int ans=0;
+  for(int x=0;x<n;x++){
+    int area = (right[x]+left[x]+1)* heights[x];
+    ans = max(ans, area);
+  }
+  return ans;
+
+}
