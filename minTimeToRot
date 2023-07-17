@@ -1,0 +1,70 @@
+#include <bits/stdc++.h> 
+int minTimeToRot(vector<vector<int>>& grid, int n, int m)
+{
+    queue<pair<int,int>> q;
+    int sz =0 ;
+    for(int x = 0; x<grid.size();x++){
+        for(int y =0 ; y< grid[x].size(); y++){
+            if(grid[x][y] == 2){
+                q.push(make_pair(x,y));
+                sz++;
+            }
+        }
+    }
+    
+    int ans =0 ;
+
+    while(!q.empty()){
+        int cnt =0;
+        while(sz>0){
+            pair<int,int> temp = q.front();
+            int x = temp.first;
+            int y = temp.second;
+            // cout<<x<<" "<<y<<" "<<sz<<"\n";
+
+            if(x>0 && grid[x-1][y] == 1 ){
+                grid[x-1][y] =2;
+                q.push(make_pair(x-1,y));
+                cnt++;
+                // cout<<1<<"\n";
+            }
+            if(y>0 && grid[x][y-1] == 1 ){
+                grid[x][y-1] =2;
+                q.push(make_pair(x,y-1));
+                cnt++;
+                // cout<<2<<"\n";
+            }
+            if(x< grid.size()-1 && grid[x+1][y] == 1 ){
+                grid[x+1][y] =2;
+                q.push(make_pair(x+1,y));
+                cnt++;
+                // cout<<3<<"\n";
+            }
+            if(y<grid[0].size()-1 && grid[x][y+1] == 1 ){
+                
+                grid[x][y+1] =2;
+                // cout<<x<<" "<<y+1<<" "<<grid[x][y+1]<<"uijksa\n";
+                q.push(make_pair(x,y+1));
+                cnt++;
+                // cout<<4<<"\n";
+            }
+
+            
+            sz--;
+            q.pop();
+        }
+        sz =cnt;
+        ans++;
+    }
+    for(int x = 0; x<grid.size();x++){
+        for(int y =0 ; y< grid[x].size(); y++){
+            if(grid[x][y] == 1){
+                return -1;
+            }
+        }
+    }
+    if(ans == 0){
+        return ans;
+    }
+    return ans-1;
+}
