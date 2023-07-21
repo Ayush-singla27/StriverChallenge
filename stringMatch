@@ -1,0 +1,24 @@
+#include <bits/stdc++.h> 
+long long int hashh(string str){
+	long long int hs =1;
+	for(int x=0;x<str.size();x++){
+		
+		hs += (pow((int)str[x] - 96 , 2 ) * x);
+	}
+	return hs;
+}
+
+vector<int> stringMatch(string text, string pattern) {
+	int n = pattern.size();
+	int itr =0;
+	vector<int> vec;
+	long long int paternhs = hashh(pattern);
+	for(int x=0;x< text.size() - n +1; x++){
+		long long int temp = hashh(text.substr(x,n));
+		if(temp == paternhs){
+			vec.push_back(x+1);
+		}
+	}
+	return vec;
+	
+}
