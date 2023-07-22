@@ -1,0 +1,33 @@
+#include <bits/stdc++.h> 
+string writeAsYouSpeak(int n) 
+{
+	vector<int> vec;
+	vec.push_back(1);
+	for(int x =0 ;x<n-1;x++){
+		int n  = vec.size();
+		int itr1=0;
+		int itr2 =0;
+		vector<int> temp;
+		while(itr2<n){
+			if(vec[itr1] == vec[itr2]){
+				itr2++;
+			}
+			else{
+				// cout<<itr2 - itr1<<" "<<vec[itr1]<<" "<<n<<"\n";
+				temp.push_back(itr2 - itr1);
+				temp.push_back(vec[itr1]);
+				itr1 = itr2;
+			}
+		}
+		temp.push_back(itr2 - itr1);
+		temp.push_back(vec[itr1]);
+		// cout<<itr2 - itr1<<" "<<vec[itr1]<<"\n";
+		
+		vec = temp;
+	}
+	string ans;
+	for(auto x : vec ){
+		ans.push_back((char)(48+x));
+	}
+	return ans;
+} 
