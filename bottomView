@@ -1,0 +1,46 @@
+#include <bits/stdc++.h> 
+/*************************************************************
+ 
+    Following is the Binary Tree node structure.
+
+    class BinaryTreeNode 
+    {
+    public : 
+        T data;
+        BinaryTreeNode<T> *left;
+        BinaryTreeNode<T> *right;
+
+        BinaryTreeNode(T data) {
+            this -> data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+*************************************************************/
+
+void btmView(BinaryTreeNode<int> *root , map<int , pair<int,int>> * mp , int height,int horizontal){
+    if(root==NULL) return;
+    
+    btmView(root->left , mp , height+1 , horizontal-1);
+    btmView(root->right , mp , height+1 , horizontal+1);
+    if(mp->find(horizontal) == mp->end() ){
+        (*mp)[horizontal]= make_pair(root->data , height);
+    }
+    else{
+        if((*mp)[horizontal].second <= height){
+            (*mp)[horizontal]= make_pair(root->data , height);
+        }
+    }
+    
+}
+
+vector<int> bottomView(BinaryTreeNode<int> * root){
+    map<int , pair<int,int>> mp;
+    btmView(root , &mp , 0 , 0);
+    vector<int> vec;
+    for(auto x : mp){
+        vec.push_back(x.second.first);
+    }
+    return vec;
+}
