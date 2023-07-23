@@ -1,0 +1,36 @@
+#include <bits/stdc++.h> 
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this->data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+void leftOrder(TreeNode<int> *root , vector<int> * vec , int height){
+    if(root==NULL) return;
+    if(vec->size() == height ){
+        vec->push_back(root->data);
+    }
+    leftOrder(root->left , vec , height+1);
+    leftOrder(root->right , vec , height+1);
+    
+}
+
+vector<int> getLeftView(TreeNode<int> *root)
+{
+    vector<int> vec;
+    leftOrder(root , &vec , 0);
+    return vec;
+}
