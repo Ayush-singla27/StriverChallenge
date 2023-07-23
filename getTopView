@@ -1,0 +1,46 @@
+#include <bits/stdc++.h> 
+/************************************************************
+
+    Following is the TreeNode class structure:
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T val;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T val) {
+            this->val = val;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+void topView(TreeNode<int> *root , map<int , pair<int,int>> * mp , int height,int horizontal){
+    if(root==NULL) return;
+
+    topView(root->left , mp , height+1 , horizontal-1);
+    topView(root->right , mp , height+1 , horizontal+1);
+    if(mp->find(horizontal) == mp->end() ){
+        (*mp)[horizontal]= make_pair(root->val , height);
+    }
+    else{
+        if((*mp)[horizontal].second >= height){
+            (*mp)[horizontal]= make_pair(root->val , height);
+        }
+    }
+
+}
+
+
+vector<int> getTopView(TreeNode<int> *root) {
+    map<int , pair<int,int>> mp;
+    topView(root , &mp , 0 , 0);
+    vector<int> vec;
+    for (auto x : mp) {
+      vec.push_back(x.second.first);
+    }
+    return vec;
+}
