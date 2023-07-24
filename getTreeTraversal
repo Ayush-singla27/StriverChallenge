@@ -1,0 +1,40 @@
+ void solve1(BinaryTreeNode<int> *root,vector<int>& v1){
+        if(root==NULL){
+            return;
+        }
+        solve1(root->left,v1);
+        v1.push_back(root->data);
+        solve1(root->right,v1);
+    }
+ void solve2(BinaryTreeNode<int> *root,vector<int>& v2){
+        if(root==NULL){
+            return;
+        }
+        v2.push_back(root->data);
+        solve2(root->left,v2);
+        
+        solve2(root->right,v2);
+    }
+ void solve3(BinaryTreeNode<int> *root,vector<int>& v3){
+        if(root==NULL){
+            return;
+        }
+        solve3(root->left,v3);
+       
+        solve3(root->right,v3);
+         v3.push_back(root->data);
+    }
+vector<vector<int>> getTreeTraversal(BinaryTreeNode<int> *root){
+    vector<vector<int>> v;
+     vector<int> v1;
+     vector<int> v2;
+     vector<int> v3;
+     solve1(root,v1);
+     solve2(root,v2);
+     solve3(root,v3);
+     v.push_back(v1);
+     v.push_back(v2);
+     v.push_back(v3);
+     return v;
+}
+
