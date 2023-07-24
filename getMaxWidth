@@ -1,0 +1,51 @@
+#include <bits/stdc++.h> 
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T val;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T val) {
+            this->val = val;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+void mxW(TreeNode<int> *root , unordered_map<int,int> *mp ,int height){
+
+    if(root == NULL){
+        return;
+    }
+    if(mp->find(height) == mp->end()){
+        (*mp)[height] = 1;
+    }
+    else{
+        (*mp)[height]++;
+    }
+    mxW(root->left, mp,height+1);
+    mxW(root->right, mp,height+1);
+}
+
+int getMaxWidth(TreeNode<int> *root)
+{
+    unordered_map<int,int> mp;
+    mxW(root , &mp , 1);
+    int ans =0;
+    int mx =0;
+    for(auto x : mp){
+        if(x.second >= mx){
+            mx = x.second;
+            ans = x.first;
+        }
+    }
+    return mx;
+
+
+}
