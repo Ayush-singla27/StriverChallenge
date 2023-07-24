@@ -1,0 +1,57 @@
+#include <bits/stdc++.h> 
+/*   
+    template <typename T = int>
+	class TreeNode
+	{
+		public:
+		T data;
+		TreeNode<T> *left;
+		TreeNode<T> *right;
+
+		TreeNode(T data)
+		{
+			this->data = data;
+			left = NULL;
+			right = NULL;
+		}
+
+		~TreeNode()
+		{
+			if (left != NULL)
+			{
+		  		delete left;
+			}
+			if (right != NULL)
+			{
+			 	delete right;
+			}
+		}
+	};
+*/
+void findX(TreeNode<int> *root, int x , bool *found , vector<int>* vec){
+	if(root == NULL){
+		return;
+	}
+	
+	if(root->data == x || *found == true){
+		*found = true;
+		return;
+	}
+	vec->push_back(root->data);
+	findX(root->left , x,found,vec);
+	findX(root->right , x,found,vec);
+	if(*found == false){
+		vec->pop_back();
+	}
+	
+
+}
+
+vector<int> pathInATree(TreeNode<int> *root, int x)
+{
+    vector<int> vec;
+	bool found = false;
+	findX(root , x, &found ,&vec);
+	vec.push_back(x);
+	return vec;
+}
