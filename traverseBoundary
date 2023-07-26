@@ -1,0 +1,94 @@
+#include <bits/stdc++.h> 
+/************************************************************
+
+    Following is the Binary Tree node structure:
+    
+    template <typename T>
+    class TreeNode {
+        public :
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this -> data = data;
+            left = NULL;
+            right = NULL;
+        }
+
+        ~TreeNode() {
+            if(left)
+                delete left;
+            if(right)
+                delete right;
+        }
+    };
+
+************************************************************/
+void rec(TreeNode<int>* root , vector<int> *leaf){
+    if(root->left == NULL && root->right == NULL){
+        leaf->push_back(root->data);
+        return;
+    }
+    if(root->left != NULL){
+        rec(root->left , leaf);
+    }
+    if(root->right !=NULL){
+        rec(root->right , leaf);
+    }
+    
+}
+
+vector<int> traverseBoundary(TreeNode<int>* root){
+    vector<int> left ; 
+    if(root->left == NULL && root->right == NULL){
+      vector<int> vec = {1};
+      return vec;
+    }
+    int start =1;
+    int end = 1;
+    left.push_back(root->data);
+    TreeNode<int>* temp = root->left;
+    if(temp == NULL){
+        start =0;
+    }
+    while(temp!=NULL){
+        left.push_back(temp->data);
+        if(temp->left!=NULL){
+            temp = temp->left;
+            continue;
+        }
+        else{
+            temp= temp->right;
+        }
+    }
+
+    vector<int> leaf ; 
+    rec(root , &leaf);
+
+    stack<int> q;
+    
+    temp = root->right;
+    if(temp == NULL){
+        end =0;
+    }
+    while(temp!=NULL){
+        q.push(temp->data);
+        if(temp->right!=NULL){
+            temp = temp->right;
+            continue;
+        }
+        else{
+            temp= temp->left;
+        }
+    }
+
+    for(int x=start;x<leaf.size()-end;x++){
+        left.push_back(leaf[x]);
+    }
+    while(!q.empty()){
+        left.push_back(q.top());
+        q.pop();
+    }
+    return left;
+}
