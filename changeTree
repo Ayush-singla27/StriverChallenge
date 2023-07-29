@@ -1,0 +1,29 @@
+#include <bits/stdc++.h> 
+void solve(BinaryTreeNode<int> *root){
+    if(!root){return;}
+    
+    int csum=0;
+    if(root->left){csum+=root->left->data;}
+    if(root->right){csum+=root->right->data;}
+    
+    if(csum>root->data){root->data=csum;}
+    else {
+        if(root->left){root->left->data=root->data;}
+        if(root->right){root->right->data=root->data;}
+    }
+    
+    solve(root->left);
+    solve(root->right); 
+
+    if(root->left||root->right){
+        int updatedsum=0;
+        if(root->left){updatedsum+=root->left->data;}
+        if(root->right){updatedsum+=root->right->data;}
+        
+        root->data=updatedsum;
+    }
+}
+void changeTree(BinaryTreeNode < int > * root) {
+    // Write your code here.
+    solve(root);
+}
